@@ -1,13 +1,47 @@
 const spnText = document.querySelector(".text");
+const cursor = document.querySelector(".cursor");
+const txt = ["witaj swiecie", "hello world", "zegnajcie"];
 
-const txt = "Et eu tempor esse nulla duis aliqua ut excepteur veniam ad culpa eiusmod. Cupidatat quis id dolor sit esse occaecat dolore nisi sit cillum aute deserunt velit. Sint elit excepteur voluptate minim et. Eu anim non cillum est nostrud nulla id ex ad. Incididunt qui occaecat ipsum laborum qui ut excepteur labore velit officia do officia consectetur. Thisis the END"
+let activeLetter = -5;
+let activeText = 0;
 
-let indexText = 0;
 const addLetter = () => {
-    spnText.textContent += txt[indexText];
-    indexText++;
-    if (indexText == txt.length) {
-        clearInterval(indexTyping);
+    if (activeLetter >= 0) {
+        spnText.textContent += txt[activeText][activeLetter];
     }
+    activeLetter++;
+    if (activeLetter === txt[activeText].length) {
+        activeText++;
+
+        if (activeText === txt.length) return;
+        return setTimeout(() => {
+            activeLetter = 0;
+            spnText.textContent = "";
+            addLetter();
+        }, 1000);
+
+    }
+
+    setTimeout(addLetter, 500);
+
 }
-const indexTyping = setInterval(addLetter, 50);
+
+addLetter();
+
+
+
+
+
+
+
+
+
+
+
+
+
+const showCursor = () => {
+    cursor.classList.toggle("active");
+}
+
+setInterval(showCursor, 500);
